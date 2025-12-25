@@ -2,5 +2,15 @@
     "java.project.sourcePaths": [
         "src/main/java"
     ],
-    "java.project.outputPath": "target"
+    "java.project.outputPath": "target",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-17",
+            "path": "/usr/java/jdk-17.0.12",
+            "default": true
+        }
+    ],
+    "java.jdt.ls.java.home": "/usr/java/jdk-17.0.12",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic"
 }
