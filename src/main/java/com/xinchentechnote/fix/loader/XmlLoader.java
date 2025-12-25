@@ -8,8 +8,13 @@ import java.io.InputStream;
 
 public class XmlLoader {
 
-  public FixSchema load(InputStream in) throws Exception {
+  public FixSchema loadSchema(InputStream in) throws Exception {
     FixSchema schema = new FixSchema();
+    FixXml fix = loadFix(in);
+    return schema;
+  }
+
+  public FixXml loadFix(InputStream in) throws Exception {
 
     JAXBContext jaxb =
         JAXBContext.newInstance(
@@ -17,6 +22,6 @@ public class XmlLoader {
     Unmarshaller un = jaxb.createUnmarshaller();
     FixXml xml = (FixXml) un.unmarshal(in);
     System.out.println(Jsons.MAPPER.writeValueAsString(xml));
-    return schema;
+    return xml;
   }
 }

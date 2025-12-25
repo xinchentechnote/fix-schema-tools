@@ -4,8 +4,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import lombok.Data;
 
 @Data
-public class Message extends BaseMessage {
+public class MsgField {
   @XmlAttribute private String name;
-  @XmlAttribute private String msgtype;
-  @XmlAttribute private String msgcat;
+  @XmlAttribute private String required;
 }
