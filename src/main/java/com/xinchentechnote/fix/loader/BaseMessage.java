@@ -8,5 +8,11 @@ import lombok.Data;
 public class BaseMessage {
 
   @XmlElement(name = "field")
-  private List<MsgField> fields;
+  private List<BaseField> baseFields;
+
+  @XmlElement(name = "component")
+  private List<CompositeField> componentFields;
+
+  @XmlElement(name = "group")
+  private List<CompositeField> groupFields;
 }

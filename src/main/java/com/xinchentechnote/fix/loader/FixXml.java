@@ -23,4 +23,7 @@ public class FixXml {
 
   @XmlElement(name = "messages")
   private Messages messages;
+
+  @XmlElement(name = "components")
+  private Components components;
 }
