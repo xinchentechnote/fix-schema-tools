@@ -1,9 +1,10 @@
-package com.xinchentechnote.fix.loader;
+package com.xinchentechnote.fix.parser;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
 import lombok.Data;
 
 @Data
-public class Component extends BaseMessage {
+public class BaseField {
   @XmlAttribute private String name;
+  @XmlAttribute private String required;
 }

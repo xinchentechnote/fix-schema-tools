@@ -1,4 +1,4 @@
-package com.xinchentechnote.fix.loader;
+package com.xinchentechnote.fix.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -7,11 +7,11 @@ import java.io.InputStream;
 import java.util.List;
 import org.junit.Test;
 
-public class XmlLoaderTest {
+public class FixXmlParserTest {
 
   @Test
   public void testLoadFix1() throws Exception {
-    XmlLoader loader = new XmlLoader();
+    FixXmlParser loader = new FixXmlParser();
     InputStream in = getClass().getClassLoader().getResourceAsStream("fix-mini.xml");
 
     assertNotNull(in);
@@ -49,7 +49,7 @@ public class XmlLoaderTest {
 
   @Test
   public void testLoadFix2() throws Exception {
-    XmlLoader loader = new XmlLoader();
+    FixXmlParser loader = new FixXmlParser();
     InputStream in = getClass().getClassLoader().getResourceAsStream("FIX44.xml");
     FixXml xml = loader.loadFix(in);
   }

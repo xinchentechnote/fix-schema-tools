@@ -1,17 +1,10 @@
-package com.xinchentechnote.fix.loader;
+package com.xinchentechnote.fix.parser;
 
-import com.xinchentechnote.fix.ir.FixSchema;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 import java.io.InputStream;
 
-public class XmlLoader {
-
-  public FixSchema loadSchema(InputStream in) throws Exception {
-    FixSchema schema = new FixSchema();
-    FixXml fix = loadFix(in);
-    return schema;
-  }
+public class FixXmlParser {
 
   public FixXml loadFix(InputStream in) throws Exception {
 

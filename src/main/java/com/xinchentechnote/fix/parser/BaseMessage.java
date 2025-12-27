@@ -1,4 +1,4 @@
-package com.xinchentechnote.fix.loader;
+package com.xinchentechnote.fix.parser;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.List;
