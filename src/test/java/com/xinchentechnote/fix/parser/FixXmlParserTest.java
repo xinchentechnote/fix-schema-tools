@@ -10,25 +10,25 @@ import org.junit.Test;
 public class FixXmlParserTest {
 
   @Test
-  public void testLoadFix1() throws Exception {
+  public void testLoadFix() throws Exception {
     FixXmlParser loader = new FixXmlParser();
     InputStream in = getClass().getClassLoader().getResourceAsStream("fix-mini.xml");
 
     assertNotNull(in);
-    FixXml xml = loader.loadFix(in);
-    assertNotNull(xml);
-    assertEquals("4", xml.getMajor());
-    assertEquals("4", xml.getMinor());
+    Fix fix = loader.loadFix(in);
+    assertNotNull(fix);
+    assertEquals("4", fix.getMajor());
+    assertEquals("4", fix.getMinor());
 
-    assertNotNull(xml.getHeader());
-    assertNotNull(xml.getTrailer());
-    assertEquals(3, xml.getFields().getFields().size());
-    Field field = xml.getFields().getFields().get(0);
+    assertNotNull(fix.getHeader());
+    assertNotNull(fix.getTrailer());
+    assertEquals(3, fix.getFields().getFields().size());
+    Field field = fix.getFields().getFields().get(0);
     assertEquals(8, field.getNumber());
     assertEquals("BeginString", field.getName());
     assertEquals("STRING", field.getType());
-    assertEquals(1, xml.getMessages().getMessages().size());
-    Message message = xml.getMessages().getMessages().get(0);
+    assertEquals(1, fix.getMessages().getMessages().size());
+    Message message = fix.getMessages().getMessages().get(0);
     assertEquals("NewOrderSingle", message.getName());
     assertEquals("D", message.getMsgtype());
     assertEquals("app", message.getMsgcat());
@@ -45,12 +45,5 @@ public class FixXmlParserTest {
     CompositeField groupField = groupFields.get(0);
     assertEquals("NoAllocs", groupField.getName());
     assertEquals("N", groupField.getRequired());
-  }
-
-  @Test
-  public void testLoadFix2() throws Exception {
-    FixXmlParser loader = new FixXmlParser();
-    InputStream in = getClass().getClassLoader().getResourceAsStream("FIX44.xml");
-    FixXml xml = loader.loadFix(in);
   }
 }

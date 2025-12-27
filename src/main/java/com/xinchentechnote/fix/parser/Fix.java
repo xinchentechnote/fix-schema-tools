@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @XmlRootElement(name = "fix")
-public class FixXml {
+public class Fix {
 
   @XmlAttribute private String major;
   @XmlAttribute private String minor;

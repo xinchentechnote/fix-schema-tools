@@ -6,13 +6,13 @@ import java.io.InputStream;
 
 public class FixXmlParser {
 
-  public FixXml loadFix(InputStream in) throws Exception {
+  public Fix loadFix(InputStream in) throws Exception {
 
     JAXBContext jaxb =
         JAXBContext.newInstance(
-            FixXml.class, Fields.class, Field.class, Messages.class, Message.class);
+            Fix.class, Fields.class, Field.class, Messages.class, Message.class);
     Unmarshaller un = jaxb.createUnmarshaller();
-    FixXml xml = (FixXml) un.unmarshal(in);
+    Fix xml = (Fix) un.unmarshal(in);
     return xml;
   }
 }
