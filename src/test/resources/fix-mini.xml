@@ -24,9 +24,15 @@
     </messages>
 
     <fields>
+        <field number="1" name="Account" type="STRING"/>
         <field number="8" name="BeginString" type="STRING" />
-        <field number="35" name="MsgType" type="STRING" />
+        <field number="9" name="BodyLength" type="LENGTH"/>
         <field number="10" name="CheckSum" type="STRING" />
+        <field number="11" name="ClOrdID" type="STRING"/>
+        <field number="35" name="MsgType" type="STRING" />
+        <field number="75" name="TradeDate" type="LOCALMKTDATE"/>
+        <field number="79" name="AllocAccount" type="STRING"/>
+        <field number="80" name="AllocQty" type="QTY"/>
     </fields>
 
     <components>

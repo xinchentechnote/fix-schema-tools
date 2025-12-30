@@ -15,7 +15,7 @@ public interface CodeGenerator {
     List<MsgCodeModel> msgCodeModels = new ArrayList<>();
     if (null != fix.getMessages()
         && null != fix.getMessages().getMessages()
-        && fix.getMessages().getMessages().size() > 0) {
+        && !fix.getMessages().getMessages().isEmpty()) {
       for (Message msg : fix.getMessages().getMessages()) {
         MsgCodeModel model = new MsgCodeModel();
         model.setMessageType(msg.getMsgtype());
