@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class Fields {
   @XmlElement(name = "field")
-  private List<Field> fields;
+  private List<FieldDef> fields;
 }

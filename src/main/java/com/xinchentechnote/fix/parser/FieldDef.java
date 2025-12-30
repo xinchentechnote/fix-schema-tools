@@ -4,7 +4,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import lombok.Data;
 
 @Data
-public class Field {
+public class FieldDef {
   @XmlAttribute private int number;
   @XmlAttribute private String name;
   @XmlAttribute private String type;

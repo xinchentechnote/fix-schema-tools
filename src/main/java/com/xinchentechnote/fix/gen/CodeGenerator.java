@@ -6,7 +6,6 @@ import com.xinchentechnote.fix.parser.Message;
 import com.xinchentechnote.fix.utils.StringTemplateHelper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
@@ -35,9 +34,7 @@ public interface CodeGenerator {
     String name = message.getName();
     String instanceName = StringUtils.capitalize(name);
     codes.add(
-        StringTemplateHelper.render(
-            "${name} ${instanceName} = new ${name}();",
-            Map.of("name", name, "instanceName", name)));
+        StringTemplateHelper.render("${name} ${instanceName} = new ${name}();", message.getInfo()));
     codes.addAll(encodeMessage(MsgType.HEADER, instanceName, header));
     codes.addAll(encodeMessage(MsgType.BODY, instanceName, message));
     codes.addAll(encodeMessage(MsgType.TRAILER, instanceName, trailer));
@@ -48,8 +45,7 @@ public interface CodeGenerator {
 
   default String decodeMessage(BaseMessage header, Message message, BaseMessage trailer) {
     List<String> codes = new ArrayList<>();
-    String name = message.getName();
-    String instanceName = StringUtils.capitalize(name);
+    String instanceName = message.getInfo().getInstanceName();
     codes.addAll(decodeMessage(MsgType.HEADER, instanceName, header));
     codes.addAll(decodeMessage(MsgType.BODY, instanceName, message));
     codes.addAll(decodeMessage(MsgType.TRAILER, instanceName, trailer));

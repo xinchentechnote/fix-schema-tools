@@ -26,4 +26,6 @@ public class Fix {
 
   @XmlElement(name = "components")
   private Components components;
+
+  public void postProcess() {}
 }
