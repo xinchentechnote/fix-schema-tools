@@ -21,7 +21,7 @@ public class Message extends BaseMessage {
 
     public Info(String name) {
       this.name = name;
-      this.instanceName = StringUtils.capitalize(name);
+      this.instanceName = StringUtils.uncapitalize(name);
     }
   }
 }

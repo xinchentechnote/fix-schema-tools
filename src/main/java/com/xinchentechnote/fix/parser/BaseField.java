@@ -38,5 +38,8 @@ public class BaseField {
     private String type;
     private boolean required;
     private String headerOrTrailer = "";
+    private String fixGetMethod = "";
+    private String afterGetMethod = "";
+    private String afterSetMethod = "";
   }
 }

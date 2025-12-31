@@ -11,7 +11,7 @@ public class ${messageName}Codec implements FixJsonCodec<${messageName}> {
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
   @Override
-  public String encode(${messageName} message) throws Exception {
+  public String encode(${messageName} ${messageName?uncap_first}) throws Exception {
     ObjectNode root = MAPPER.createObjectNode();
     ${encodeCode}
     return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(root);
@@ -21,7 +21,7 @@ public class ${messageName}Codec implements FixJsonCodec<${messageName}> {
   public Logon decode(String jsonString) throws Exception {
     JsonNode root = MAPPER.readTree(jsonString);
     ${decodeCode}
-    return logon;
+    return ${messageName?uncap_first};
   }
 
 }
