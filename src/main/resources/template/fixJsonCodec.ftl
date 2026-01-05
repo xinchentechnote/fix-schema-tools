@@ -18,7 +18,7 @@ public class ${messageName}Codec implements FixJsonCodec<${messageName}> {
   }
 
   @Override
-  public Logon decode(String jsonString) throws Exception {
+  public ${messageName} decode(String jsonString) throws Exception {
     JsonNode root = MAPPER.readTree(jsonString);
     ${decodeCode}
     return ${messageName?uncap_first};
