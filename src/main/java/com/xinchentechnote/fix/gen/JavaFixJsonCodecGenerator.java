@@ -49,10 +49,17 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
       info.setFixGetMethod(typeInfo.getFixGetMethod());
       info.setAfterSetMethod(typeInfo.getAfterSetMethod());
       info.setAfterGetMethod(typeInfo.getAfterGetMethod());
+
       String code =
           StringTemplateHelper.render(
               "${parenName}${headerOrTrailer}.setField(new ${name}(root.get(\"${name}\")${afterSetMethod}));",
               info);
+      if (fieldDef.isUtc()) {
+        code =
+            StringTemplateHelper.render(
+                "${parenName}${headerOrTrailer}.setField(new ${name}(newLocalDateTime(root.get(\"${name}\")${afterSetMethod})));",
+                info);
+      }
       if (!baseField.isRequired()) {
         codes.add(StringTemplateHelper.render("if (root.has(\"${name}\")) {", info));
         codes.add("  " + code);

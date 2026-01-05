@@ -10,7 +10,10 @@ import freemarker.template.TemplateException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -25,6 +28,12 @@ public class GenerateCommand implements Runnable {
 
   @Option(names = "--package", required = true, description = "Base package name")
   String packageName;
+
+  @Option(
+      names = "--messages",
+      required = true,
+      description = "Message names to generate, comma separated")
+  String messageNames;
 
   @Option(names = "--out", required = true, description = "Output directory")
   String outDir;
@@ -43,8 +52,14 @@ public class GenerateCommand implements Runnable {
       Fix fix = loader.loadFix(fis);
       CodeGenerator generator = new JavaFixJsonCodecGenerator();
       List<MsgCodeModel> msgCodeModels = generator.parseCodeModel(fix, packageName);
+      Set<String> msgNames = new HashSet<>();
+      if (!StringUtils.isEmpty(messageNames)) {
+        msgNames = Set.of(messageNames.split(","));
+      }
+      Set<String> finalMsgNames = msgNames;
       msgCodeModels.stream()
-          .filter(model -> "Logon".equals(model.getMessageName()))
+          .filter(
+              model -> finalMsgNames.isEmpty() || finalMsgNames.contains(model.getMessageName()))
           .forEach(
               model -> {
                 System.out.println("-------------------------------");
