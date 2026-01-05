@@ -27,7 +27,7 @@ import java.util.Map;
 // UTCTIMEONLY
 // UTCTIMESTAMP
 public class JavaTypeMapping implements TypeMapping {
-  private static Map<String, TypeInfo> MAP = new HashMap<>();
+  private static final Map<String, TypeInfo> MAP = new HashMap<>();
 
   static {
     MAP.put("AMT", new TypeInfo("AMT", "Double", "getDouble", ".asDouble()"));

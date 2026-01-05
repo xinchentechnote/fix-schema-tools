@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaFixJsonCodecGenerator implements CodeGenerator {
-  private TypeMapping typeMapping = new JavaTypeMapping();
+  private final TypeMapping typeMapping = new JavaTypeMapping();
 
   @Override
   public List<String> encodeMessage(MsgType type, String instanceName, BaseMessage msg) {
