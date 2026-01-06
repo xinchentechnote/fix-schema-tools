@@ -6,16 +6,22 @@ import com.xinchentechnote.fix.parser.Message;
 import com.xinchentechnote.fix.utils.StringTemplateHelper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 
 public interface CodeGenerator {
 
-  default List<MsgCodeModel> parseCodeModel(Fix fix, String packageName) {
+  default List<MsgCodeModel> parseCodeModel(Fix fix, String packageName, Set<String> filterMsgNames) {
     List<MsgCodeModel> msgCodeModels = new ArrayList<>();
     if (null != fix.getMessages()
         && null != fix.getMessages().getMessages()
         && !fix.getMessages().getMessages().isEmpty()) {
       for (Message msg : fix.getMessages().getMessages()) {
+          if (filterMsgNames != null && !filterMsgNames.isEmpty()
+                  && !filterMsgNames.contains(msg.getName())) {
+              continue;
+          }
         MsgCodeModel model = new MsgCodeModel();
         model.setMessageType(msg.getMsgtype());
         model.setMessageName(msg.getName());

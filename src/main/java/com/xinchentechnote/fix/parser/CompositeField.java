@@ -28,7 +28,11 @@ public class CompositeField extends BaseMessage {
     return info;
   }
 
-  @Data
+    public boolean isEmpty() {
+        return getBaseFields().isEmpty() && getGroupFields().isEmpty() && getComponentFields().isEmpty();
+    }
+
+    @Data
   public static class Info {
     private String name;
     private String parentName;

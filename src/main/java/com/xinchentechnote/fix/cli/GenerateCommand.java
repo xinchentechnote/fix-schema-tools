@@ -51,12 +51,12 @@ public class GenerateCommand implements Runnable {
       FixXmlParser loader = new FixXmlParser();
       Fix fix = loader.loadFix(fis);
       CodeGenerator generator = new JavaFixJsonCodecGenerator();
-      List<MsgCodeModel> msgCodeModels = generator.parseCodeModel(fix, packageName);
       Set<String> msgNames = new HashSet<>();
-      if (!StringUtils.isEmpty(messageNames)) {
-        msgNames = Set.of(messageNames.split(","));
-      }
-      Set<String> finalMsgNames = msgNames;
+        if (!StringUtils.isEmpty(messageNames)) {
+            msgNames = Set.of(messageNames.split(","));
+        }
+        List<MsgCodeModel> msgCodeModels = generator.parseCodeModel(fix, packageName,msgNames);
+        Set<String> finalMsgNames = msgNames;
       msgCodeModels.stream()
           .filter(
               model -> finalMsgNames.isEmpty() || finalMsgNames.contains(model.getMessageName()))
