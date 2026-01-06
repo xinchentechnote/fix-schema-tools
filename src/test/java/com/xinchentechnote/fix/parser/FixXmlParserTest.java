@@ -22,7 +22,7 @@ public class FixXmlParserTest {
 
     assertNotNull(fix.getHeader());
     assertNotNull(fix.getTrailer());
-    assertEquals(9, fix.getFields().getFields().size());
+    assertEquals(14, fix.getFields().getFields().size());
     FieldDef field = fix.getFields().getFields().get(0);
     assertEquals(1, field.getNumber());
     assertEquals("Account", field.getName());
