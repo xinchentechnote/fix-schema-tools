@@ -32,6 +32,9 @@ public interface CodeGenerator {
     List<String> codes = new ArrayList<>();
     String name = message.getName();
     String instanceName = StringUtils.uncapitalize(name);
+    codes.add(
+        StringTemplateHelper.render(
+            "ObjectNode ${instanceName}Node = MAPPER.createObjectNode();", message.getInfo()));
     codes.addAll(encodeMessage(MsgType.HEADER, instanceName, header));
     codes.addAll(encodeMessage(MsgType.BODY, instanceName, message));
     codes.addAll(encodeMessage(MsgType.TRAILER, instanceName, trailer));

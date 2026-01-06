@@ -4,4 +4,6 @@ public enum MsgType {
   HEADER,
   TRAILER,
   BODY,
+  GROUP,
+  COMPONENT,
 }

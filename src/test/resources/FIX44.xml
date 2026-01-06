@@ -26,11 +26,11 @@
     <field name="XmlData" required="N"/>
     <field name="MessageEncoding" required="N"/>
     <field name="LastMsgSeqNumProcessed" required="N"/>
-    <group name="NoHops" required="N">
-      <field name="HopCompID" required="N"/>
-      <field name="HopSendingTime" required="N"/>
-      <field name="HopRefID" required="N"/>
-    </group>
+<!--    <group name="NoHops" required="N">-->
+<!--      <field name="HopCompID" required="N"/>-->
+<!--      <field name="HopSendingTime" required="N"/>-->
+<!--      <field name="HopRefID" required="N"/>-->
+<!--    </group>-->
   </header>
   <trailer>
     <field name="SignatureLength" required="N"/>

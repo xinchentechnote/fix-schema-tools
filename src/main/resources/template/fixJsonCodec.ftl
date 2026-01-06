@@ -3,6 +3,7 @@ package ${packageName};
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import quickfix.field.*;
 import quickfix.fix44.*;
 
@@ -12,14 +13,13 @@ public class ${messageName}Codec implements FixJsonCodec<${messageName}> {
 
   @Override
   public String encode(${messageName} ${messageName?uncap_first}) throws Exception {
-    ObjectNode root = MAPPER.createObjectNode();
     ${encodeCode}
-    return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+    return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(${messageName?uncap_first}Node);
   }
 
   @Override
   public ${messageName} decode(String jsonString) throws Exception {
-    JsonNode root = MAPPER.readTree(jsonString);
+    JsonNode ${messageName?uncap_first}Node = MAPPER.readTree(jsonString);
     ${decodeCode}
     return ${messageName?uncap_first};
   }

@@ -16,7 +16,7 @@ public class BaseField {
 
   public Info getInfo(MsgType type, String parenName) {
     Info info = new Info();
-    info.setParenName(parenName);
+    info.setParentName(parenName);
     info.setName(name);
     info.setRequired(isRequired());
     info.setType(fieldDef.getType());
@@ -34,7 +34,7 @@ public class BaseField {
   @Data
   public static class Info {
     private String name;
-    private String parenName;
+    private String parentName;
     private String type;
     private boolean required;
     private String headerOrTrailer = "";
