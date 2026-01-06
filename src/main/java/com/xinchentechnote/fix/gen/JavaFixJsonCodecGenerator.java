@@ -80,9 +80,16 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
       codes.add(
           StringTemplateHelper.render(
               "ObjectNode ${parentName}${name}Node = MAPPER.createObjectNode();", info));
+      codes.add(
+          StringTemplateHelper.render(
+              "${name} ${parentName}${name} = ${parentName}${headerOrTrailer}.get${name}();", info));
       codes.addAll(
           encodeMessage(
               MsgType.COMPONENT, instanceName + componentField.getName(), componentField));
+      //advertisementNode.put("Instrument", advertisementInstrumentNode);
+        codes.add(
+            StringTemplateHelper.render(
+                "${parentName}Node.set(\"${name}\", ${parentName}${name}Node);", info));
     }
     return codes;
   }
@@ -144,14 +151,17 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
     for (CompositeField componentField : msg.getComponentFields()) {
       CompositeField.Info info = componentField.getInfo(type, instanceName);
       codes.add(
-          StringTemplateHelper.render("if (${parentName}${name}Node.has(\"${name}\")) {", info));
+          StringTemplateHelper.render("if (${parentName}Node.has(\"${name}\")) {", info));
       codes.add(
           StringTemplateHelper.render(
-              "ObjectNode ${parentName}${name}Node = (ObjectNode)${parentName}${name}Node.get(\"${name}\");",
+              "ObjectNode ${parentName}${name}Node = (ObjectNode) ${parentName}Node.get(\"${name}\");",
               info));
+        codes.add(StringTemplateHelper.render("${name} ${parentName}${name} = ${parentName}.get${name}();",info));
+
       codes.addAll(
           decodeMessage(
               MsgType.COMPONENT, instanceName + componentField.getName(), componentField));
+        codes.add(StringTemplateHelper.render("${parentName}.set(${parentName}${name});",info));
       codes.add("}");
     }
     return codes;

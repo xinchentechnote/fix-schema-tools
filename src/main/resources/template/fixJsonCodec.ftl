@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import quickfix.field.*;
 import quickfix.fix44.*;
+import quickfix.fix44.component.*;
 
 public class ${messageName}Codec implements FixJsonCodec<${messageName}> {
 
