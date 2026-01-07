@@ -58,15 +58,15 @@ public class Fix {
     msg.getComponentFields()
         .forEach(
             comp -> {
-                if (comp.isEmpty()) {
-                    //ref component definition to fill
-                    Component component = this.components.queryComponent(comp.getName());
-                    if (null != component) {
-                        comp.setBaseFields(component.getBaseFields());
-                        comp.setComponentFields(component.getComponentFields());
-                        comp.setGroupFields(component.getGroupFields());
-                    }
+              if (comp.isEmpty()) {
+                // ref component definition to fill
+                Component component = this.components.queryComponent(comp.getName());
+                if (null != component) {
+                  comp.setBaseFields(component.getBaseFields());
+                  comp.setComponentFields(component.getComponentFields());
+                  comp.setGroupFields(component.getGroupFields());
                 }
+              }
               postProcessMessage(comp, fieldDefMap);
             });
   }
