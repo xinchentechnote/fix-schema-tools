@@ -1,4 +1,10 @@
 package com.xinchentechnote.fix.parser.v2;
 
-public class ComponentDef {
+import java.util.List;
+import lombok.Data;
+
+@Data
+public class ComponentDef implements StructuredDef {
+  String name;
+  List<Entry> entries;
 }
