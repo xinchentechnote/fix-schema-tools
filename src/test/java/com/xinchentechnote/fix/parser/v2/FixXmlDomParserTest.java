@@ -20,7 +20,7 @@ public class FixXmlDomParserTest {
     assertEquals("NewOrderSingle", messageDef.getName());
     assertEquals("D", messageDef.getMsgType());
     assertEquals(5, messageDef.getEntries().size());
-    assertEquals(0, fixSchema.getComponents().size());
+    assertEquals(1, fixSchema.getComponents().size());
   }
 
   @Test
