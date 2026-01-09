@@ -25,10 +25,37 @@ public class FixXmlDomParser implements FixXmlParser {
     Element root = doc.getDocumentElement();
 
     FixSchema schema = new FixSchema();
+    schema.setVersion(parseVersion(root));
+    schema.setHeader(parseHeader(root));
+    schema.setTrailer(parseTrailer(root));
     schema.setFields(parseFields(root));
     schema.setComponents(parseComponents(root));
     schema.setMessages(parseMessages(root));
     return schema;
+  }
+
+  private String parseVersion(Element root) {
+    String major = root.getAttribute("major");
+    String minor = root.getAttribute("minor");
+    return major + "." + minor;
+  }
+
+  private MessageDef parseHeader(Element root) {
+    Element header = getFirstChild(root, "header");
+    MessageDef messageDef = new MessageDef();
+    messageDef.setName("header");
+    messageDef.setMsgType("header");
+    messageDef.setEntries(parseEntries(header));
+    return messageDef;
+  }
+
+  private MessageDef parseTrailer(Element root) {
+    Element trailer = getFirstChild(root, "trailer");
+    MessageDef messageDef = new MessageDef();
+    messageDef.setName("trailer");
+    messageDef.setMsgType("trailer");
+    messageDef.setEntries(parseEntries(trailer));
+    return messageDef;
   }
 
   private Map<String, MessageDef> parseMessages(Element root) {
@@ -133,6 +160,7 @@ public class FixXmlDomParser implements FixXmlParser {
       ComponentDef componentDef = new ComponentDef();
       componentDef.setName(name);
       componentDef.setEntries(parseEntries(item));
+      map.put(name, componentDef);
     }
     return map;
   }
