@@ -1,5 +1,6 @@
 package com.xinchentechnote.fix.parser.v2;
 
+import java.util.List;
 import java.util.Map;
 import lombok.Data;
 
@@ -11,4 +12,35 @@ public class FixSchema {
   private Map<String, FieldDef> fields;
   private Map<String, ComponentDef> components;
   private Map<String, MessageDef> messages;
+
+  public void postProcess() {
+    // Link FieldEntry and ComponentEntry to their definitions
+    for (MessageDef message : messages.values()) {
+      linkEntries(message.getEntries());
+    }
+    for (ComponentDef component : components.values()) {
+      linkEntries(component.getEntries());
+    }
+    linkEntries(header.getEntries());
+    linkEntries(trailer.getEntries());
+  }
+
+  private void linkEntries(List<Entry> entries) {
+    for (Entry entry : entries) {
+      if (entry instanceof FieldEntry) {
+        FieldEntry fieldEntry = (FieldEntry) entry;
+        FieldDef def = fields.get(fieldEntry.getName());
+        //        assert def != null;
+        fieldEntry.setDef(def);
+      } else if (entry instanceof GroupEntry) {
+        GroupEntry groupEntry = (GroupEntry) entry;
+        linkEntries(groupEntry.getEntries());
+      } else if (entry instanceof ComponentEntry) {
+        ComponentEntry componentEntry = (ComponentEntry) entry;
+        ComponentDef def = components.get(componentEntry.getName());
+        //        assert def != null;
+        componentEntry.setDef(def);
+      }
+    }
+  }
 }

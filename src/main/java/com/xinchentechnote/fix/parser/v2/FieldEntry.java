@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public final class FieldEntry implements Entry {
-  String name;
-  boolean required;
+  private String name;
+  private boolean required;
+  private FieldDef def;
 }

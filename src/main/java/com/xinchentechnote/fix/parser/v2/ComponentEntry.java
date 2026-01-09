@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public final class ComponentEntry implements Entry {
-  String name;
-  boolean required;
+  private String name;
+  private boolean required;
+  private ComponentDef def;
 }

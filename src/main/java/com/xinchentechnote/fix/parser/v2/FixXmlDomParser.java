@@ -31,6 +31,7 @@ public class FixXmlDomParser implements FixXmlParser {
     schema.setFields(parseFields(root));
     schema.setComponents(parseComponents(root));
     schema.setMessages(parseMessages(root));
+    schema.postProcess();
     return schema;
   }
 
