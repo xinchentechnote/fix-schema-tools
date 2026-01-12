@@ -1,0 +1,106 @@
+package com.xinchentechnote.fix.gen.v2;
+
+import com.xinchentechnote.fix.gen.MsgCodeModel;
+import com.xinchentechnote.fix.gen.MsgType;
+import com.xinchentechnote.fix.parser.v2.*;
+import com.xinchentechnote.fix.utils.StringTemplateHelper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
+
+public interface CodeGenerator {
+
+  default List<MsgCodeModel> parseCodeModel(
+      FixSchema fix, String packageName, Set<String> msgNames) {
+    List<MsgCodeModel> msgCodeModels = new ArrayList<>();
+    if (null != fix.getMessages() && null != msgNames) {
+      for (String msgName : msgNames) {
+        MessageDef msgDef = fix.getMessages().get(msgName);
+        MsgCodeModel model = new MsgCodeModel();
+        model.setMessageType(msgDef.getMsgType());
+        model.setMessageName(msgDef.getName());
+        model.setPackageName(packageName);
+        model.setEncodeCode(encodeMessage(fix.getHeader(), msgDef, fix.getTrailer()));
+        model.setDecodeCode(decodeMessage(fix.getHeader(), msgDef, fix.getTrailer()));
+        msgCodeModels.add(model);
+      }
+    }
+    return msgCodeModels;
+  }
+
+  default String encodeMessage(MessageDef header, MessageDef message, MessageDef trailer) {
+    List<String> codes = new ArrayList<>();
+    String name = message.getName();
+    String instanceName = StringUtils.uncapitalize(name);
+    codes.add(
+        StringTemplateHelper.render(
+            "ObjectNode ${instanceName}Node = MAPPER.createObjectNode();",
+            message.buildTemplateModel()));
+    codes.addAll(encodeMessage(MsgType.HEADER, header));
+    codes.addAll(encodeMessage(MsgType.BODY, message));
+    codes.addAll(encodeMessage(MsgType.TRAILER, trailer));
+    return String.join("\n", codes);
+  }
+
+  default List<String> encodeMessage(MsgType type, MessageDef msg) {
+    List<String> codes = new ArrayList<>();
+    for (Entry entry : msg.getEntries()) {
+      codes.addAll(encodeEntry(type, msg.getName(), entry));
+    }
+    return codes;
+  }
+
+  default List<String> encodeEntry(MsgType msgType, String name, Entry entry) {
+    if (entry instanceof FieldEntry) {
+      return encodeEntry(msgType, name, (FieldEntry) entry);
+    } else if (entry instanceof ComponentEntry) {
+      return encodeEntry(msgType, name, (ComponentEntry) entry);
+    } else {
+      return encodeEntry(msgType, name, (GroupEntry) entry);
+    }
+  }
+
+  List<String> encodeEntry(MsgType msgType, String name, FieldEntry entry);
+
+  List<String> encodeEntry(MsgType msgType, String name, ComponentEntry entry);
+
+  List<String> encodeEntry(MsgType msgType, String name, GroupEntry entry);
+
+  default String decodeMessage(MessageDef header, MessageDef message, MessageDef trailer) {
+    List<String> codes = new ArrayList<>();
+    String name = message.getName();
+    String instanceName = StringUtils.uncapitalize(name);
+    codes.add(
+        StringTemplateHelper.render(
+            "${name} ${instanceName} = new ${name}();", message.buildTemplateModel()));
+    codes.addAll(decodeMessage(MsgType.HEADER, header));
+    codes.addAll(decodeMessage(MsgType.BODY, message));
+    codes.addAll(decodeMessage(MsgType.TRAILER, trailer));
+    return String.join("\n", codes);
+  }
+
+  default List<String> decodeMessage(MsgType type, MessageDef msg) {
+    List<String> codes = new ArrayList<>();
+    for (Entry entry : msg.getEntries()) {
+      codes.addAll(decodeEntry(type, msg.getName(), entry));
+    }
+    return codes;
+  }
+
+  default List<String> decodeEntry(MsgType msgType, String name, Entry entry) {
+    if (entry instanceof FieldEntry) {
+      return decodeEntry(msgType, name, (FieldEntry) entry);
+    } else if (entry instanceof ComponentEntry) {
+      return decodeEntry(msgType, name, (ComponentEntry) entry);
+    } else {
+      return decodeEntry(msgType, name, (GroupEntry) entry);
+    }
+  }
+
+  List<String> decodeEntry(MsgType msgType, String name, FieldEntry entry);
+
+  List<String> decodeEntry(MsgType msgType, String name, ComponentEntry entry);
+
+  List<String> decodeEntry(MsgType msgType, String name, GroupEntry entry);
+}
