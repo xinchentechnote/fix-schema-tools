@@ -37,16 +37,16 @@ public interface CodeGenerator {
         StringTemplateHelper.render(
             "ObjectNode ${instanceName}Node = MAPPER.createObjectNode();",
             message.buildTemplateModel()));
-    codes.addAll(encodeMessage(MsgType.HEADER, header));
-    codes.addAll(encodeMessage(MsgType.BODY, message));
-    codes.addAll(encodeMessage(MsgType.TRAILER, trailer));
+    codes.addAll(encodeMessage(MsgType.HEADER, instanceName, header));
+    codes.addAll(encodeMessage(MsgType.BODY, instanceName, message));
+    codes.addAll(encodeMessage(MsgType.TRAILER, instanceName, trailer));
     return String.join("\n", codes);
   }
 
-  default List<String> encodeMessage(MsgType type, MessageDef msg) {
+  default List<String> encodeMessage(MsgType type, String name, MessageDef msg) {
     List<String> codes = new ArrayList<>();
     for (Entry entry : msg.getEntries()) {
-      codes.addAll(encodeEntry(type, msg.getName(), entry));
+      codes.addAll(encodeEntry(type, name, entry));
     }
     return codes;
   }
@@ -74,16 +74,16 @@ public interface CodeGenerator {
     codes.add(
         StringTemplateHelper.render(
             "${name} ${instanceName} = new ${name}();", message.buildTemplateModel()));
-    codes.addAll(decodeMessage(MsgType.HEADER, header));
-    codes.addAll(decodeMessage(MsgType.BODY, message));
-    codes.addAll(decodeMessage(MsgType.TRAILER, trailer));
+    codes.addAll(decodeMessage(MsgType.HEADER, instanceName, header));
+    codes.addAll(decodeMessage(MsgType.BODY, instanceName, message));
+    codes.addAll(decodeMessage(MsgType.TRAILER, instanceName, trailer));
     return String.join("\n", codes);
   }
 
-  default List<String> decodeMessage(MsgType type, MessageDef msg) {
+  default List<String> decodeMessage(MsgType type, String name, MessageDef msg) {
     List<String> codes = new ArrayList<>();
     for (Entry entry : msg.getEntries()) {
-      codes.addAll(decodeEntry(type, msg.getName(), entry));
+      codes.addAll(decodeEntry(type, name, entry));
     }
     return codes;
   }

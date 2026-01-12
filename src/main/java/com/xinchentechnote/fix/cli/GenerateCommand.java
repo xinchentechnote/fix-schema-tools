@@ -1,14 +1,12 @@
 package com.xinchentechnote.fix.cli;
 
-import com.xinchentechnote.fix.gen.CodeGenerator;
-import com.xinchentechnote.fix.gen.JavaFixJsonCodecGenerator;
 import com.xinchentechnote.fix.gen.MsgCodeModel;
+import com.xinchentechnote.fix.gen.v2.CodeGenerator;
+import com.xinchentechnote.fix.gen.v2.JavaFixJsonCodecGenerator;
 import com.xinchentechnote.fix.out.FreemarkerHelper;
-import com.xinchentechnote.fix.parser.Fix;
-import com.xinchentechnote.fix.parser.FixXmlParser;
+import com.xinchentechnote.fix.parser.v2.FixSchema;
+import com.xinchentechnote.fix.parser.v2.FixXmlDomParser;
 import freemarker.template.TemplateException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -40,16 +38,10 @@ public class GenerateCommand implements Runnable {
 
   @Override
   public void run() {
-    File file = new File(schema);
-    if (!file.exists()) {
-      System.err.println("Schema file does not exist: " + schema);
-      return;
-    }
     System.out.println("Generating code for " + lang + " to " + outDir + " from schema " + schema);
     try {
-      FileInputStream fis = new FileInputStream(file);
-      FixXmlParser loader = new FixXmlParser();
-      Fix fix = loader.loadFix(fis);
+      FixXmlDomParser loader = new FixXmlDomParser();
+      FixSchema fix = loader.parse(schema);
       CodeGenerator generator = new JavaFixJsonCodecGenerator();
       Set<String> msgNames = new HashSet<>();
       if (!StringUtils.isEmpty(messageNames)) {

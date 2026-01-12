@@ -10,6 +10,6 @@ public class FieldDef {
   FixType type;
 
   public boolean isUtc() {
-    return false;
+    return FixType.isUtc(type.name());
   }
 }
