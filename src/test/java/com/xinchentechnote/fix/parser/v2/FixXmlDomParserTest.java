@@ -2,6 +2,7 @@ package com.xinchentechnote.fix.parser.v2;
 
 import static org.junit.Assert.*;
 
+import com.xinchentechnote.fix.parser.FixType;
 import org.junit.Test;
 
 public class FixXmlDomParserTest {
