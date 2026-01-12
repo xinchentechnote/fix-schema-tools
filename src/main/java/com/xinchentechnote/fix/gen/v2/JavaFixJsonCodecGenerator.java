@@ -104,23 +104,23 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
     List<String> codes = new ArrayList<>();
     FieldDef fieldDef = entry.getDef();
     TypeInfo typeInfo = typeMapping.getType(fieldDef.getType().name());
-    FieldEntry.TemplateModel info = entry.buildTemplateModel(msgType, parentName);
-    info.setFixGetMethod(typeInfo.getFixGetMethod());
-    info.setAfterSetMethod(typeInfo.getAfterSetMethod());
-    info.setAfterGetMethod(typeInfo.getAfterGetMethod());
+    FieldEntry.TemplateModel model = entry.buildTemplateModel(msgType, parentName);
+    model.setFixGetMethod(typeInfo.getFixGetMethod());
+    model.setAfterSetMethod(typeInfo.getAfterSetMethod());
+    model.setAfterGetMethod(typeInfo.getAfterGetMethod());
 
     String code =
         StringTemplateHelper.render(
             "${parentName}${headerOrTrailer}.setField(new ${name}(${parentName}Node.get(\"${name}\")${afterSetMethod}));",
-            info);
+            model);
     if (fieldDef.isUtc()) {
       code =
           StringTemplateHelper.render(
               "${parentName}${headerOrTrailer}.setField(new ${name}(newLocalDateTime(${parentName}Node.get(\"${name}\")${afterSetMethod})));",
-              info);
+              model);
     }
     if (!entry.isRequired()) {
-      codes.add(StringTemplateHelper.render("if (${parentName}Node.has(\"${name}\")) {", info));
+      codes.add(StringTemplateHelper.render("if (${parentName}Node.has(\"${name}\")) {", model));
       codes.add("  " + code);
       codes.add("}");
     } else {

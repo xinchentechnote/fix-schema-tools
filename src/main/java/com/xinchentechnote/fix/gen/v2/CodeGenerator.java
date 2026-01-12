@@ -51,21 +51,21 @@ public interface CodeGenerator {
     return codes;
   }
 
-  default List<String> encodeEntry(MsgType msgType, String name, Entry entry) {
+  default List<String> encodeEntry(MsgType msgType, String parentName, Entry entry) {
     if (entry instanceof FieldEntry) {
-      return encodeEntry(msgType, name, (FieldEntry) entry);
+      return encodeEntry(msgType, parentName, (FieldEntry) entry);
     } else if (entry instanceof ComponentEntry) {
-      return encodeEntry(msgType, name, (ComponentEntry) entry);
+      return encodeEntry(msgType, parentName, (ComponentEntry) entry);
     } else {
-      return encodeEntry(msgType, name, (GroupEntry) entry);
+      return encodeEntry(msgType, parentName, (GroupEntry) entry);
     }
   }
 
-  List<String> encodeEntry(MsgType msgType, String name, FieldEntry entry);
+  List<String> encodeEntry(MsgType msgType, String parentName, FieldEntry entry);
 
-  List<String> encodeEntry(MsgType msgType, String name, ComponentEntry entry);
+  List<String> encodeEntry(MsgType msgType, String parentName, ComponentEntry entry);
 
-  List<String> encodeEntry(MsgType msgType, String name, GroupEntry entry);
+  List<String> encodeEntry(MsgType msgType, String parentName, GroupEntry entry);
 
   default String decodeMessage(MessageDef header, MessageDef message, MessageDef trailer) {
     List<String> codes = new ArrayList<>();
@@ -88,19 +88,19 @@ public interface CodeGenerator {
     return codes;
   }
 
-  default List<String> decodeEntry(MsgType msgType, String name, Entry entry) {
+  default List<String> decodeEntry(MsgType msgType, String parentName, Entry entry) {
     if (entry instanceof FieldEntry) {
-      return decodeEntry(msgType, name, (FieldEntry) entry);
+      return decodeEntry(msgType, parentName, (FieldEntry) entry);
     } else if (entry instanceof ComponentEntry) {
-      return decodeEntry(msgType, name, (ComponentEntry) entry);
+      return decodeEntry(msgType, parentName, (ComponentEntry) entry);
     } else {
-      return decodeEntry(msgType, name, (GroupEntry) entry);
+      return decodeEntry(msgType, parentName, (GroupEntry) entry);
     }
   }
 
-  List<String> decodeEntry(MsgType msgType, String name, FieldEntry entry);
+  List<String> decodeEntry(MsgType msgType, String parentName, FieldEntry entry);
 
-  List<String> decodeEntry(MsgType msgType, String name, ComponentEntry entry);
+  List<String> decodeEntry(MsgType msgType, String parentName, ComponentEntry entry);
 
-  List<String> decodeEntry(MsgType msgType, String name, GroupEntry entry);
+  List<String> decodeEntry(MsgType msgType, String parentName, GroupEntry entry);
 }
