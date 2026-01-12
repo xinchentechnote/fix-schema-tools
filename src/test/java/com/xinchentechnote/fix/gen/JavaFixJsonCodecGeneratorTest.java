@@ -28,11 +28,11 @@ public class JavaFixJsonCodecGeneratorTest {
     BaseMessage header = fix.getHeader();
     List<String> codes = generator.encodeMessage(MsgType.HEADER, "header", fix.getHeader());
     assertEquals(3, codes.size());
-      List<String> expectedLines = List.of(
-              "headerNode.put(\"BeginString\", header.getHeader().getString(BeginString.FIELD));",
-              "headerNode.put(\"BodyLength\", header.getHeader().getInt(BodyLength.FIELD));",
-              "headerNode.put(\"MsgType\", header.getHeader().getString(MsgType.FIELD));"
-      );
-      assertEquals(expectedLines, codes);
+    List<String> expectedLines =
+        List.of(
+            "headerNode.put(\"BeginString\", header.getHeader().getString(BeginString.FIELD));",
+            "headerNode.put(\"BodyLength\", header.getHeader().getInt(BodyLength.FIELD));",
+            "headerNode.put(\"MsgType\", header.getHeader().getString(MsgType.FIELD));");
+    assertEquals(expectedLines, codes);
   }
 }
