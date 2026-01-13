@@ -30,7 +30,7 @@ public class FixXmlDomParserTest {
     FixSchema fixSchema = parser.parse("src/test/resources/FIX44.xml");
 
     assertEquals("4.4", fixSchema.getVersion());
-    assertEquals(26, fixSchema.getHeader().getEntries().size());
+    assertEquals(27, fixSchema.getHeader().getEntries().size());
     assertEquals(3, fixSchema.getTrailer().getEntries().size());
 
     assertEquals(916, fixSchema.getFields().size());
