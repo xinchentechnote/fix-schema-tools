@@ -1,14 +1,13 @@
 package com.xinchentechnote.fix.out;
 
 import com.xinchentechnote.fix.gen.MsgCodeModel;
+import com.xinchentechnote.fix.utils.JavaCodeFormatter;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,10 +47,13 @@ public class FreemarkerHelper {
 
     Template template = configuration.getTemplate(templateName);
 
-    try (Writer writer = new FileWriter(filePath.toFile())) {
-      template.process(model, writer);
-      System.out.println("✓ Generated: " + filePath.toAbsolutePath());
-    }
+    StringWriter stringWriter = new StringWriter();
+    template.process(model, stringWriter);
+    String content = stringWriter.toString();
+    Files.createDirectories(filePath.getParent());
+    content = JavaCodeFormatter.format(content);
+    Files.writeString(filePath, content, StandardCharsets.UTF_8);
+    System.out.println("✓ Generated: " + filePath.toAbsolutePath());
   }
 
   public static Path generateJavaFilePath(String outDir, String packageName, String className) {

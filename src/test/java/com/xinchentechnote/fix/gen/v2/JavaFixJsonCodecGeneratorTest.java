@@ -16,7 +16,7 @@ public class JavaFixJsonCodecGeneratorTest {
     FixXmlDomParser parser = new FixXmlDomParser();
     FixSchema fix = parser.parse("src/test/resources/fix-mini.xml");
     MessageDef header = fix.getHeader();
-    List<String> codes = generator.encodeMessage(MsgType.HEADER,"logon", header);
+    List<String> codes = generator.encodeMessage(MsgType.HEADER, "logon", header);
     assertEquals(3, codes.size());
     List<String> expectedLines =
         List.of(
