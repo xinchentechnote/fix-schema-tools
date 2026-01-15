@@ -55,7 +55,7 @@ public class JavaFixJsonCodecGeneratorTest {
             "Instrument", List.of(FieldEntry.build("Account", true, 1, FixType.STRING))));
     List<String> codes = generator.encodeEntry(MsgType.BODY, "newOrderSingle", entry);
     System.out.println(String.join("\n", codes));
-    assertEquals(4, codes.size());
+    assertEquals(3, codes.size());
   }
 
   @Test

@@ -34,7 +34,7 @@ public class FixSchema {
         fieldEntry.setDef(def);
       } else if (entry instanceof GroupEntry) {
         GroupEntry groupEntry = (GroupEntry) entry;
-        linkEntries(groupEntry.getEntries());
+        linkEntries(groupEntry.getDef().getEntries());
       } else if (entry instanceof ComponentEntry) {
         ComponentEntry componentEntry = (ComponentEntry) entry;
         ComponentDef def = components.get(componentEntry.getName());

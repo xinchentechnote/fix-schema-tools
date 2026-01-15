@@ -8,13 +8,17 @@ import lombok.Data;
 public final class GroupEntry implements Entry {
   String name;
   boolean required;
-  List<Entry> entries;
+  GroupDef def;
 
   public static GroupEntry build(String name, boolean required, List<Entry> entries) {
     GroupEntry groupEntry = new GroupEntry();
     groupEntry.setName(name);
     groupEntry.setRequired(required);
-    groupEntry.setEntries(entries);
+    GroupDef def = new GroupDef();
+    def.setName(name);
+    def.setDelimiter(entries.get(0).getName());
+    def.setEntries(entries);
+    groupEntry.setDef(def);
     return groupEntry;
   }
 
