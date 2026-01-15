@@ -28,11 +28,13 @@ public final class FieldEntry implements Entry {
     model.setParentName(parentName);
     switch (msgType) {
       case TRAILER:
-        model.setHeaderOrTrailer(".getTrailer()");
+        model.parentFixName = "trailer";
         break;
       case HEADER:
-        model.setHeaderOrTrailer(".getHeader()");
+        model.parentFixName = "header";
         break;
+      default:
+        model.parentFixName = parentName;
     }
     return model;
   }
@@ -41,7 +43,7 @@ public final class FieldEntry implements Entry {
   public static class TemplateModel {
     private String name;
     private String parentName = "";
-    private String headerOrTrailer = "";
+    private String parentFixName = "";
     private String afterSetMethod = "";
     private String fixGetMethod = "";
     private String afterGetMethod = "";

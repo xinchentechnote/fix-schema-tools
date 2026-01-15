@@ -122,9 +122,9 @@ public class FixXmlDomParser implements FixXmlParser {
   }
 
   private Entry parseGroupEntry(Element element) {
-      String name = element.getAttribute("name");
-      boolean required = element.getAttribute("required").equalsIgnoreCase("Y");
-    return GroupEntry.build(name,required,parseEntries(element));
+    String name = element.getAttribute("name");
+    boolean required = element.getAttribute("required").equalsIgnoreCase("Y");
+    return GroupEntry.build(name, required, parseEntries(element));
   }
 
   private Element getFirstChild(Element parent, String tagName) {

@@ -20,9 +20,9 @@ public class JavaFixJsonCodecGeneratorTest {
     assertEquals(3, codes.size());
     List<String> expectedLines =
         List.of(
-            "logonNode.put(\"BeginString\", logon.getHeader().getString(BeginString.FIELD));",
-            "logonNode.put(\"BodyLength\", logon.getHeader().getInt(BodyLength.FIELD));",
-            "logonNode.put(\"MsgType\", logon.getHeader().getString(MsgType.FIELD));");
+            "logonNode.put(\"BeginString\", header.getString(BeginString.FIELD));",
+            "logonNode.put(\"BodyLength\", header.getInt(BodyLength.FIELD));",
+            "logonNode.put(\"MsgType\", header.getString(MsgType.FIELD));");
     assertEquals(expectedLines, codes);
   }
 
@@ -37,13 +37,13 @@ public class JavaFixJsonCodecGeneratorTest {
     codes = generator.encodeEntry(MsgType.HEADER, "logon", entry);
     assertEquals(1, codes.size());
     assertEquals(
-        "logonNode.put(\"Account\", logon.getHeader().getString(Account.FIELD));", codes.get(0));
+        "logonNode.put(\"Account\", header.getString(Account.FIELD));", codes.get(0));
 
     entry.setRequired(false);
     codes = generator.encodeEntry(MsgType.HEADER, "logon", entry);
     assertEquals(3, codes.size());
     assertEquals(
-        "  logonNode.put(\"Account\", logon.getHeader().getString(Account.FIELD));", codes.get(1));
+        "  logonNode.put(\"Account\", header.getString(Account.FIELD));", codes.get(1));
   }
 
   @Test

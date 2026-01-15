@@ -37,6 +37,13 @@ public interface CodeGenerator {
         StringTemplateHelper.render(
             "ObjectNode ${instanceName}Node = MAPPER.createObjectNode();",
             message.buildTemplateModel()));
+    codes.add(
+        StringTemplateHelper.render(
+            "Message.Header header = ${instanceName}.getHeader();", message.buildTemplateModel()));
+    codes.add(
+        StringTemplateHelper.render(
+            "Message.Trailer trailer = ${instanceName}.getTrailer();",
+            message.buildTemplateModel()));
     codes.addAll(encodeMessage(MsgType.HEADER, instanceName, header));
     codes.addAll(encodeMessage(MsgType.BODY, instanceName, message));
     codes.addAll(encodeMessage(MsgType.TRAILER, instanceName, trailer));
@@ -74,6 +81,13 @@ public interface CodeGenerator {
     codes.add(
         StringTemplateHelper.render(
             "${name} ${instanceName} = new ${name}();", message.buildTemplateModel()));
+    codes.add(
+        StringTemplateHelper.render(
+            "Message.Header header = ${instanceName}.getHeader();", message.buildTemplateModel()));
+    codes.add(
+        StringTemplateHelper.render(
+            "Message.Trailer trailer = ${instanceName}.getTrailer();",
+            message.buildTemplateModel()));
     codes.addAll(decodeMessage(MsgType.HEADER, instanceName, header));
     codes.addAll(decodeMessage(MsgType.BODY, instanceName, message));
     codes.addAll(decodeMessage(MsgType.TRAILER, instanceName, trailer));

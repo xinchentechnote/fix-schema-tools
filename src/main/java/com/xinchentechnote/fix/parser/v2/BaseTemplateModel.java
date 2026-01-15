@@ -15,18 +15,20 @@ public class BaseTemplateModel {
     setParentName(parentName);
     switch (msgType) {
       case TRAILER:
-        this.headerOrTrailer = ".getTrailer()";
+        this.parentFixName = "trailer";
         break;
       case HEADER:
-        this.headerOrTrailer = ".getHeader()";
+        this.parentFixName = "header";
         break;
+      default:
+        this.parentFixName = parentName;
     }
   }
 
   private String name;
   private String parentName;
+  private String parentFixName;
   private String parentUpperName;
-  private String headerOrTrailer = "";
 
   public void setParentName(String parentName) {
     this.parentName = parentName;

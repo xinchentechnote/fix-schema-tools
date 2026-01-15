@@ -23,12 +23,11 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
     model.setAfterGetMethod(typeInfo.getAfterGetMethod());
     String code =
         StringTemplateHelper.render(
-            "${parentName}Node.put(\"${name}\", ${parentName}${headerOrTrailer}.${fixGetMethod}(${name}.FIELD)${afterGetMethod});",
+            "${parentName}Node.put(\"${name}\", ${parentFixName}.${fixGetMethod}(${name}.FIELD)${afterGetMethod});",
             model);
     if (!entry.isRequired()) {
       codes.add(
-          StringTemplateHelper.render(
-              "if (${parentName}${headerOrTrailer}.isSetField(${name}.FIELD)) {", model));
+          StringTemplateHelper.render("if (${parentFixName}.isSetField(${name}.FIELD)) {", model));
       codes.add("  " + code);
       codes.add("}");
     } else {
@@ -61,23 +60,22 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
     GroupEntry.TemplateModel info = entry.buildTemplateModel(msgType, parentName);
     if (!entry.isRequired()) {
       codes.add(
-          StringTemplateHelper.render(
-              "if (${parentName}${headerOrTrailer}.isSetField(${name}.FIELD)) {", info));
+          StringTemplateHelper.render("if (${parentFixName}.isSetField(${name}.FIELD)) {", info));
     }
-      GroupDef.TemplateModel groupInfo = entry.getDef().buildTemplateModel();
-      String newGroup = StringTemplateHelper.render("new Group(${name}.FIELD,${delimiter}.FIELD,new int[]{${fieldList},0});",groupInfo);
-    codes.add(
+    GroupDef.TemplateModel groupInfo = entry.getDef().buildTemplateModel();
+    String newGroup =
         StringTemplateHelper.render(
-            "Group ${parentName}${name}Group = " + newGroup,
-            info));
+            "new Group(${name}.FIELD,${delimiter}.FIELD,new int[]{${fieldList},0});", groupInfo);
+    codes.add(StringTemplateHelper.render("Group ${parentName}${name}Group = " + newGroup, info));
     codes.add(
         StringTemplateHelper.render(
             "ArrayNode ${parentName}${name}Node = MAPPER.createArrayNode();", info));
     codes.add(
         StringTemplateHelper.render(
-            "for(int i = 1;i <= ${parentName}${headerOrTrailer}.getGroupCount(${name}.FIELD);i++) {", info));
+            "for(int i = 1;i <= ${parentFixName}.getGroupCount(${name}.FIELD);i++) {", info));
     codes.add(
-        StringTemplateHelper.render("${parentName}${headerOrTrailer}.getGroup(i, ${parentName}${name}Group);", info));
+        StringTemplateHelper.render(
+            "${parentFixName}.getGroup(i, ${parentName}${name}Group);", info));
     codes.add(
         StringTemplateHelper.render(
             "ObjectNode ${parentName}${name}GroupNode = MAPPER.createObjectNode();", info));
@@ -109,12 +107,12 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
 
     String code =
         StringTemplateHelper.render(
-            "${parentName}${headerOrTrailer}.setField(new ${name}(${parentName}Node.get(\"${name}\")${afterSetMethod}));",
+            "${parentFixName}.setField(new ${name}(${parentName}Node.get(\"${name}\")${afterSetMethod}));",
             model);
     if (fieldDef.isUtc()) {
       code =
           StringTemplateHelper.render(
-              "${parentName}${headerOrTrailer}.setField(new ${name}(newLocalDateTime(${parentName}Node.get(\"${name}\")${afterSetMethod})));",
+              "${parentFixName}.setField(new ${name}(newLocalDateTime(${parentName}Node.get(\"${name}\")${afterSetMethod})));",
               model);
     }
     if (!entry.isRequired()) {
@@ -159,17 +157,16 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
         StringTemplateHelper.render(
             "for (JsonNode ${parentName}${name}GroupNode : ${parentName}${name}GroupNodes) {",
             info));
-      GroupDef.TemplateModel groupInfo = entry.getDef().buildTemplateModel();
-      String newGroup = StringTemplateHelper.render("new Group(${name}.FIELD,${delimiter}.FIELD,new int[]{${fieldList},0});",groupInfo);
-    codes.add(
+    GroupDef.TemplateModel groupInfo = entry.getDef().buildTemplateModel();
+    String newGroup =
         StringTemplateHelper.render(
-            "Group ${parentName}${name}Group = " + newGroup,
-            info));
+            "new Group(${name}.FIELD,${delimiter}.FIELD,new int[]{${fieldList},0});", groupInfo);
+    codes.add(StringTemplateHelper.render("Group ${parentName}${name}Group = " + newGroup, info));
     for (Entry groupEntry : entry.getDef().getEntries()) {
       codes.addAll(decodeEntry(MsgType.GROUP, parentName + entry.getName() + "Group", groupEntry));
     }
     codes.add(
-        StringTemplateHelper.render("${parentName}${headerOrTrailer}.addGroup(${parentName}${name}Group);", info));
+        StringTemplateHelper.render("${parentFixName}.addGroup(${parentName}${name}Group);", info));
     codes.add("}");
     codes.add("}");
     return codes;
