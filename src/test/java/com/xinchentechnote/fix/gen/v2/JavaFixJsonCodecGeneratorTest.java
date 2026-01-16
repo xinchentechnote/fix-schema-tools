@@ -36,14 +36,12 @@ public class JavaFixJsonCodecGeneratorTest {
 
     codes = generator.encodeEntry(MsgType.HEADER, "logon", entry);
     assertEquals(1, codes.size());
-    assertEquals(
-        "logonNode.put(\"Account\", header.getString(Account.FIELD));", codes.get(0));
+    assertEquals("logonNode.put(\"Account\", header.getString(Account.FIELD));", codes.get(0));
 
     entry.setRequired(false);
     codes = generator.encodeEntry(MsgType.HEADER, "logon", entry);
     assertEquals(3, codes.size());
-    assertEquals(
-        "  logonNode.put(\"Account\", header.getString(Account.FIELD));", codes.get(1));
+    assertEquals("  logonNode.put(\"Account\", header.getString(Account.FIELD));", codes.get(1));
   }
 
   @Test
