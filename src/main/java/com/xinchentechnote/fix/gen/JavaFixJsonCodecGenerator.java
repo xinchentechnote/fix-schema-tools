@@ -11,6 +11,7 @@ import com.xinchentechnote.fix.utils.StringTemplateHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class JavaFixJsonCodecGenerator implements CodeGenerator {
   private final TypeMapping typeMapping = new JavaTypeMapping();
 

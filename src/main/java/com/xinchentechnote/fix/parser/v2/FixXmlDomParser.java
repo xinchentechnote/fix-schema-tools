@@ -14,6 +14,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class FixXmlDomParser implements FixXmlParser {
+
+  public static FixSchema load(String path) throws Exception {
+    FixXmlDomParser parser = new FixXmlDomParser();
+    return parser.parse(path);
+  }
+
   @Override
   public FixSchema parse(String path) throws Exception {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

@@ -1,5 +1,6 @@
 package com.xinchentechnote.fix.parser.v2;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.Data;
@@ -12,10 +13,12 @@ public class FixSchema {
   private Map<String, FieldDef> fields;
   private Map<String, ComponentDef> components;
   private Map<String, MessageDef> messages;
+  private Map<String, MessageDef> typeMessageMaps = new HashMap<>();
 
   public void postProcess() {
     // Link FieldEntry and ComponentEntry to their definitions
     for (MessageDef message : messages.values()) {
+      typeMessageMaps.put(message.getMsgType(), message);
       linkEntries(message.getEntries());
     }
     for (ComponentDef component : components.values()) {
@@ -42,5 +45,9 @@ public class FixSchema {
         componentEntry.setDef(def);
       }
     }
+  }
+
+  public MessageDef getMessage(String msgType) {
+    return typeMessageMaps.get(msgType);
   }
 }

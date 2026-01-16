@@ -4,6 +4,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 import java.io.InputStream;
 
+@Deprecated
 public class FixXmlParser {
 
   public Fix loadFix(InputStream in) throws Exception {
