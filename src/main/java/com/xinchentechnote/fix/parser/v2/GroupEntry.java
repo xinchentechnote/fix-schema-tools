@@ -16,7 +16,6 @@ public final class GroupEntry implements Entry {
     groupEntry.setRequired(required);
     GroupDef def = new GroupDef();
     def.setName(name);
-    def.setDelimiter(entries.get(0).getName());
     def.setEntries(entries);
     groupEntry.setDef(def);
     return groupEntry;
