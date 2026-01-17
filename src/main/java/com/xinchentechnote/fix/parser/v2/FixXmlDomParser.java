@@ -2,6 +2,7 @@ package com.xinchentechnote.fix.parser.v2;
 
 import com.xinchentechnote.fix.parser.FixType;
 import java.io.File;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 public class FixXmlDomParser implements FixXmlParser {
 
@@ -20,17 +22,34 @@ public class FixXmlDomParser implements FixXmlParser {
     return parser.parse(path);
   }
 
+  public static FixSchema loadXml(String xmlContent) throws Exception {
+    FixXmlDomParser parser = new FixXmlDomParser();
+    return parser.parseFromXml(xmlContent);
+  }
+
+  @Override
+  public FixSchema parseFromXml(String xml) throws Exception {
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    factory.setIgnoringComments(true);
+    factory.setNamespaceAware(false);
+    DocumentBuilder builder = factory.newDocumentBuilder();
+    Document doc = builder.parse(new InputSource(new StringReader(xml)));
+    Element root = doc.getDocumentElement();
+    return parse(root);
+  }
+
   @Override
   public FixSchema parse(String path) throws Exception {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setIgnoringComments(true);
     factory.setNamespaceAware(false);
-
     DocumentBuilder builder = factory.newDocumentBuilder();
     Document doc = builder.parse(new File(path));
-
     Element root = doc.getDocumentElement();
+    return parse(root);
+  }
 
+  private FixSchema parse(Element root) {
     FixSchema schema = new FixSchema();
     schema.setVersion(parseVersion(root));
     schema.setHeader(parseHeader(root));
