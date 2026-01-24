@@ -11,19 +11,18 @@ import quickfix.field.*;
 import quickfix.fix44.*;
 import quickfix.fix44.component.*;
 
-public class ${messageName}Codec implements FixJsonCodec<${messageName}> {
+public class ${messageName}Codec implements FixJsonCodec<JsonNode,${messageName}> {
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
   @Override
-  public String encode(${messageName} ${messageName?uncap_first}) throws Exception {
+  public JsonNode encode(${messageName} ${messageName?uncap_first}) throws Exception {
     ${encodeCode}
-    return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(${messageName?uncap_first}Node);
+    return ${messageName?uncap_first}Node;
   }
 
   @Override
-  public ${messageName} decode(String jsonString) throws Exception {
-    JsonNode ${messageName?uncap_first}Node = MAPPER.readTree(jsonString);
+  public ${messageName} decode(JsonNode ${messageName?uncap_first}Node) throws Exception {
     ${decodeCode}
     return ${messageName?uncap_first};
   }

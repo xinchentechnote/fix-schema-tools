@@ -28,6 +28,12 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
         StringTemplateHelper.render(
             "${parentName}Node.put(\"${name}\", ${parentFixName}.${fixGetMethod}(${name}.FIELD)${afterGetMethod});",
             model);
+    if (fieldDef.isUtc()){
+        code =
+            StringTemplateHelper.render(
+                "${parentName}Node.put(\"${name}\", toFixTimestamp(${parentFixName}.${fixGetMethod}(${name}.FIELD)));",
+                model);
+    }
     if (!entry.isRequired()) {
       codes.add(
           StringTemplateHelper.render("if (${parentFixName}.isSetField(${name}.FIELD)) {", model));
