@@ -31,7 +31,10 @@ public class JavaTypeMapping implements TypeMapping {
 
   static {
     MAP.put("AMT", new TypeInfo("AMT", "Double", "getDouble", ".asDouble()"));
-    MAP.put("BOOLEAN", new TypeInfo("BOOLEAN", "Boolean", "getBoolean", ".asText().equals(\"Y\")"," ? \"Y\" : \"N\""));
+    MAP.put(
+        "BOOLEAN",
+        new TypeInfo(
+            "BOOLEAN", "Boolean", "getBoolean", ".asText().equals(\"Y\")", " ? \"Y\" : \"N\""));
     MAP.put("CHAR", new TypeInfo("CHAR", "Character", "getString", ".asText().charAt(0)"));
     MAP.put("COUNTRY", new TypeInfo("COUNTRY", "String", "getString", ".asText()"));
     MAP.put("CURRENCY", new TypeInfo("CURRENCY", "String", "getString", ".asText()"));
