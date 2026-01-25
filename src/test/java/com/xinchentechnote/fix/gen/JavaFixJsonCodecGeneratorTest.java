@@ -1,7 +1,8 @@
-package com.xinchentechnote.fix.gen.v2;
+package com.xinchentechnote.fix.gen;
 
 import static org.junit.Assert.*;
 
+import com.xinchentechnote.fix.gen.JavaFixJsonCodecGenerator;
 import com.xinchentechnote.fix.gen.MsgType;
 import com.xinchentechnote.fix.parser.FixType;
 import com.xinchentechnote.fix.parser.v2.*;

@@ -1,7 +1,5 @@
-package com.xinchentechnote.fix.gen.v2;
+package com.xinchentechnote.fix.gen;
 
-import com.xinchentechnote.fix.gen.MsgCodeModel;
-import com.xinchentechnote.fix.gen.MsgType;
 import com.xinchentechnote.fix.parser.v2.*;
 import com.xinchentechnote.fix.utils.StringTemplateHelper;
 import java.util.ArrayList;
