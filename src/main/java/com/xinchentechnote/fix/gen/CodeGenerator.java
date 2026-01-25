@@ -31,17 +31,16 @@ public interface CodeGenerator {
     List<String> codes = new ArrayList<>();
     String name = message.getName();
     String instanceName = StringUtils.uncapitalize(name);
+    MessageDefTemplateModel templateModel = MessageDefTemplateModel.buildTemplateModel(message);
     codes.add(
         StringTemplateHelper.render(
-            "ObjectNode ${instanceName}Node = MAPPER.createObjectNode();",
-            message.buildTemplateModel()));
+            "ObjectNode ${instanceName}Node = MAPPER.createObjectNode();", templateModel));
     codes.add(
         StringTemplateHelper.render(
-            "Message.Header header = ${instanceName}.getHeader();", message.buildTemplateModel()));
+            "Message.Header header = ${instanceName}.getHeader();", templateModel));
     codes.add(
         StringTemplateHelper.render(
-            "Message.Trailer trailer = ${instanceName}.getTrailer();",
-            message.buildTemplateModel()));
+            "Message.Trailer trailer = ${instanceName}.getTrailer();", templateModel));
     codes.addAll(encodeMessage(MsgType.HEADER, instanceName, header));
     codes.addAll(encodeMessage(MsgType.BODY, instanceName, message));
     codes.addAll(encodeMessage(MsgType.TRAILER, instanceName, trailer));
@@ -76,16 +75,15 @@ public interface CodeGenerator {
     List<String> codes = new ArrayList<>();
     String name = message.getName();
     String instanceName = StringUtils.uncapitalize(name);
+    MessageDefTemplateModel templateModel = MessageDefTemplateModel.buildTemplateModel(message);
+    codes.add(
+        StringTemplateHelper.render("${name} ${instanceName} = new ${name}();", templateModel));
     codes.add(
         StringTemplateHelper.render(
-            "${name} ${instanceName} = new ${name}();", message.buildTemplateModel()));
+            "Message.Header header = ${instanceName}.getHeader();", templateModel));
     codes.add(
         StringTemplateHelper.render(
-            "Message.Header header = ${instanceName}.getHeader();", message.buildTemplateModel()));
-    codes.add(
-        StringTemplateHelper.render(
-            "Message.Trailer trailer = ${instanceName}.getTrailer();",
-            message.buildTemplateModel()));
+            "Message.Trailer trailer = ${instanceName}.getTrailer();", templateModel));
     codes.addAll(decodeMessage(MsgType.HEADER, instanceName, header));
     codes.addAll(decodeMessage(MsgType.BODY, instanceName, message));
     codes.addAll(decodeMessage(MsgType.TRAILER, instanceName, trailer));

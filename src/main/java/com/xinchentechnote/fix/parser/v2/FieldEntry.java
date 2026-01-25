@@ -1,6 +1,5 @@
 package com.xinchentechnote.fix.parser.v2;
 
-import com.xinchentechnote.fix.gen.MsgType;
 import com.xinchentechnote.fix.parser.FixType;
 import lombok.Data;
 
@@ -20,32 +19,5 @@ public final class FieldEntry implements Entry {
     def.setType(type);
     entry.setDef(def);
     return entry;
-  }
-
-  public TemplateModel buildTemplateModel(MsgType msgType, String parentName) {
-    TemplateModel model = new TemplateModel();
-    model.setName(name);
-    model.setParentName(parentName);
-    switch (msgType) {
-      case TRAILER:
-        model.parentFixName = "trailer";
-        break;
-      case HEADER:
-        model.parentFixName = "header";
-        break;
-      default:
-        model.parentFixName = parentName;
-    }
-    return model;
-  }
-
-  @Data
-  public static class TemplateModel {
-    private String name;
-    private String parentName = "";
-    private String parentFixName = "";
-    private String afterSetMethod = "";
-    private String fixGetMethod = "";
-    private String afterGetMethod = "";
   }
 }

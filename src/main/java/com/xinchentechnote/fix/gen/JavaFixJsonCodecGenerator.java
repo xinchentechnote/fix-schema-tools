@@ -20,7 +20,8 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
     List<String> codes = new ArrayList<>();
     FieldDef fieldDef = entry.getDef();
     TypeInfo typeInfo = typeMapping.getType(fieldDef.getType().name());
-    FieldEntry.TemplateModel model = entry.buildTemplateModel(msgType, parentName);
+    FieldEntryTemplateModel model =
+        FieldEntryTemplateModel.buildTemplateModel(entry, msgType, parentName);
     model.setFixGetMethod(typeInfo.getFixGetMethod());
     model.setAfterGetMethod(typeInfo.getAfterGetMethod());
     String code =
@@ -47,7 +48,8 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
   @Override
   public List<String> encodeEntry(MsgType msgType, String parentName, ComponentEntry entry) {
     List<String> codes = new ArrayList<>();
-    ComponentEntry.TemplateModel model = entry.buildTemplateModel(msgType, parentName);
+    ComponentEntryTemplateModel model =
+        ComponentEntryTemplateModel.buildTemplateModel(entry, msgType, parentName);
     codes.add(
         StringTemplateHelper.render(
             "ObjectNode ${parentName}${name}Node = MAPPER.createObjectNode();", model));
@@ -65,12 +67,13 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
   public List<String> encodeEntry(MsgType msgType, String parentName, GroupEntry entry) {
     List<String> codes = new ArrayList<>();
 
-    GroupEntry.TemplateModel model = entry.buildTemplateModel(msgType, parentName);
+    GroupEntryTemplateModel model =
+        GroupEntryTemplateModel.buildTemplateModel(entry, msgType, parentName);
     if (!entry.isRequired()) {
       codes.add(
           StringTemplateHelper.render("if (${parentFixName}.isSetField(${name}.FIELD)) {", model));
     }
-    GroupDef.TemplateModel groupInfo = entry.getDef().buildTemplateModel();
+    GroupDefTemplateModel groupInfo = GroupDefTemplateModel.buildTemplateModel(entry.getDef());
     String newGroup =
         StringTemplateHelper.render(
             "new Group(${name}.FIELD,${delimiter}.FIELD,new int[]{${fieldList},0});", groupInfo);
@@ -111,7 +114,8 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
     List<String> codes = new ArrayList<>();
     FieldDef fieldDef = entry.getDef();
     TypeInfo typeInfo = typeMapping.getType(fieldDef.getType().name());
-    FieldEntry.TemplateModel model = entry.buildTemplateModel(msgType, parentName);
+    FieldEntryTemplateModel model =
+        FieldEntryTemplateModel.buildTemplateModel(entry, msgType, parentName);
     model.setFixGetMethod(typeInfo.getFixGetMethod());
     model.setAfterSetMethod(typeInfo.getAfterSetMethod());
     model.setAfterGetMethod(typeInfo.getAfterGetMethod());
@@ -140,7 +144,8 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
   public List<String> decodeEntry(MsgType msgType, String parentName, ComponentEntry entry) {
 
     List<String> codes = new ArrayList<>();
-    ComponentEntry.TemplateModel model = entry.buildTemplateModel(msgType, parentName);
+    ComponentEntryTemplateModel model =
+        ComponentEntryTemplateModel.buildTemplateModel(entry, msgType, parentName);
     codes.add(StringTemplateHelper.render("if (${parentName}Node.has(\"${name}\")) {", model));
     codes.add(
         StringTemplateHelper.render(
@@ -159,7 +164,8 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
   public List<String> decodeEntry(MsgType msgType, String parentName, GroupEntry entry) {
 
     List<String> codes = new ArrayList<>();
-    GroupEntry.TemplateModel model = entry.buildTemplateModel(msgType, parentName);
+    GroupEntryTemplateModel model =
+        GroupEntryTemplateModel.buildTemplateModel(entry, msgType, parentName);
     codes.add(StringTemplateHelper.render("if (${parentName}Node.has(\"${name}\")) {", model));
     codes.add(
         StringTemplateHelper.render(
@@ -169,7 +175,7 @@ public class JavaFixJsonCodecGenerator implements CodeGenerator {
         StringTemplateHelper.render(
             "for (JsonNode ${parentName}${name}GroupNode : ${parentName}${name}GroupNodes) {",
             model));
-    GroupDef.TemplateModel groupInfo = entry.getDef().buildTemplateModel();
+    GroupDefTemplateModel groupInfo = GroupDefTemplateModel.buildTemplateModel(entry.getDef());
     String newGroup =
         StringTemplateHelper.render(
             "new Group(${name}.FIELD,${delimiter}.FIELD,new int[]{${fieldList},0});", groupInfo);

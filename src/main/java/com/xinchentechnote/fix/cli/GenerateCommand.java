@@ -1,8 +1,8 @@
 package com.xinchentechnote.fix.cli;
 
-import com.xinchentechnote.fix.gen.MsgCodeModel;
 import com.xinchentechnote.fix.gen.CodeGenerator;
 import com.xinchentechnote.fix.gen.JavaFixJsonCodecGenerator;
+import com.xinchentechnote.fix.gen.MsgCodeModel;
 import com.xinchentechnote.fix.out.FreemarkerHelper;
 import com.xinchentechnote.fix.parser.v2.FixSchema;
 import com.xinchentechnote.fix.parser.v2.FixXmlDomParser;
