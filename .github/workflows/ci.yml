@@ -30,6 +30,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Check and build with Maven
-      run: mvn spotless:check
-        | mvn -B clean install --file submodules/fix-parser/pom.xml
+      run: mvn -B clean install --file submodules/fix-parser/pom.xml
+        | mvn spotless:check
         | mvn -B package --file pom.xml
