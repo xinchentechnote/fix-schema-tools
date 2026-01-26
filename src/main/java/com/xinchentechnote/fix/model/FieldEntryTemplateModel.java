@@ -1,6 +1,7 @@
 package com.xinchentechnote.fix.model;
 
 import com.xinchentechnote.fix.gen.MsgType;
+import com.xinchentechnote.fix.parser.FieldEntry;
 import lombok.Data;
 
 @Data

@@ -3,7 +3,6 @@ package com.xinchentechnote.fix.gen;
 import static org.junit.Assert.*;
 
 import com.xinchentechnote.fix.parser.*;
-
 import java.util.List;
 import org.junit.Test;
 

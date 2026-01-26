@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 public interface CodeGenerator {
 
   default List<MsgCodeModel> parseCodeModel(
-          FixSchema fix, String packageName, Set<String> msgNames) {
+      FixSchema fix, String packageName, Set<String> msgNames) {
     List<MsgCodeModel> msgCodeModels = new ArrayList<>();
     if (null != fix.getMessages() && null != msgNames) {
       for (String msgName : msgNames) {

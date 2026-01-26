@@ -1,5 +1,6 @@
 package com.xinchentechnote.fix.model;
 
+import com.xinchentechnote.fix.parser.GroupDef;
 import java.util.stream.Collectors;
 import lombok.Data;
 
@@ -11,10 +12,10 @@ public class GroupDefTemplateModel {
 
   public static GroupDefTemplateModel buildTemplateModel(GroupDef groupDef) {
     GroupDefTemplateModel templateModel = new GroupDefTemplateModel();
-    templateModel.name = groupDef.name;
-    templateModel.delimiter = groupDef.delimiter;
+    templateModel.name = groupDef.getName();
+    templateModel.delimiter = groupDef.getDelimiter();
     templateModel.fieldList =
-        groupDef.entries.stream()
+        groupDef.getEntries().stream()
             .map(field -> field.getName() + ".FIELD")
             .collect(Collectors.joining(","));
     return templateModel;

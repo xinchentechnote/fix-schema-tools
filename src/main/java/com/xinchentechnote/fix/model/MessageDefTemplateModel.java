@@ -1,5 +1,6 @@
 package com.xinchentechnote.fix.model;
 
+import com.xinchentechnote.fix.parser.MessageDef;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,6 +15,6 @@ public class MessageDefTemplateModel {
   }
 
   public static MessageDefTemplateModel buildTemplateModel(MessageDef messageDef) {
-    return new MessageDefTemplateModel(messageDef.name);
+    return new MessageDefTemplateModel(messageDef.getName());
   }
 }
