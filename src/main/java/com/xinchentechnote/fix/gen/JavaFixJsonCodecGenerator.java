@@ -1,5 +1,9 @@
 package com.xinchentechnote.fix.gen;
 
+import com.xinchentechnote.fix.model.ComponentEntryTemplateModel;
+import com.xinchentechnote.fix.model.FieldEntryTemplateModel;
+import com.xinchentechnote.fix.model.GroupDefTemplateModel;
+import com.xinchentechnote.fix.model.GroupEntryTemplateModel;
 import com.xinchentechnote.fix.parser.*;
 import com.xinchentechnote.fix.type.JavaTypeMapping;
 import com.xinchentechnote.fix.type.TypeInfo;
