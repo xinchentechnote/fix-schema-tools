@@ -1,4 +1,4 @@
-package com.xinchentechnote.fix.parser.v2;
+package com.xinchentechnote.fix.parser;
 
 public interface FixXmlParser {
   FixSchema parse(String xml) throws Exception;

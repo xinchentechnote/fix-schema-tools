@@ -1,6 +1,6 @@
 package com.xinchentechnote.fix.gen;
 
-import com.xinchentechnote.fix.parser.v2.*;
+import com.xinchentechnote.fix.parser.*;
 import com.xinchentechnote.fix.utils.StringTemplateHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 public interface CodeGenerator {
 
   default List<MsgCodeModel> parseCodeModel(
-      FixSchema fix, String packageName, Set<String> msgNames) {
+          FixSchema fix, String packageName, Set<String> msgNames) {
     List<MsgCodeModel> msgCodeModels = new ArrayList<>();
     if (null != fix.getMessages() && null != msgNames) {
       for (String msgName : msgNames) {

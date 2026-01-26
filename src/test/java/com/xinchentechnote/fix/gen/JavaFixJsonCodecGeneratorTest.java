@@ -2,8 +2,8 @@ package com.xinchentechnote.fix.gen;
 
 import static org.junit.Assert.*;
 
-import com.xinchentechnote.fix.parser.FixType;
-import com.xinchentechnote.fix.parser.v2.*;
+import com.xinchentechnote.fix.parser.*;
+
 import java.util.List;
 import org.junit.Test;
 

@@ -1,8 +1,7 @@
-package com.xinchentechnote.fix.parser.v2;
+package com.xinchentechnote.fix.parser;
 
 import static org.junit.Assert.*;
 
-import com.xinchentechnote.fix.parser.FixType;
 import org.junit.Test;
 
 public class FixXmlDomParserTest {

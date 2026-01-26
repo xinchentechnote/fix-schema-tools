@@ -1,6 +1,6 @@
 package com.xinchentechnote.fix.gen;
 
-import com.xinchentechnote.fix.parser.v2.*;
+import com.xinchentechnote.fix.parser.*;
 import com.xinchentechnote.fix.type.JavaTypeMapping;
 import com.xinchentechnote.fix.type.TypeInfo;
 import com.xinchentechnote.fix.type.TypeMapping;

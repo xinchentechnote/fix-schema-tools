@@ -1,4 +1,4 @@
-package com.xinchentechnote.fix.parser.v2;
+package com.xinchentechnote.fix.parser;
 
 import com.xinchentechnote.fix.gen.MsgType;
 

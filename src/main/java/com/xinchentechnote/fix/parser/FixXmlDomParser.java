@@ -1,6 +1,5 @@
-package com.xinchentechnote.fix.parser.v2;
+package com.xinchentechnote.fix.parser;
 
-import com.xinchentechnote.fix.parser.FixType;
 import java.io.File;
 import java.io.StringReader;
 import java.util.ArrayList;
