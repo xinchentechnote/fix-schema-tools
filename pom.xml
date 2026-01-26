@@ -17,11 +17,11 @@
   </properties>
 
   <dependencies>
-     <dependency>
-       <groupId>com.xinchentechnote.fix</groupId>
-       <artifactId>fix-parser</artifactId>
-       <version>1.0-SNAPSHOT</version>
-     </dependency>
+      <dependency>
+          <groupId>com.xinchentechnote.fix</groupId>
+          <artifactId>fix-parser</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
     <dependency>
       <groupId>info.picocli</groupId>
       <artifactId>picocli</artifactId>

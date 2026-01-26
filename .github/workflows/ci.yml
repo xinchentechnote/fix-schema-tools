@@ -23,7 +23,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
+      - name: Build parser with Maven
         run: mvn -B clean install --file submodules/fix-parser/pom.xml
-          | mvn spotless:check
+      - name: Build with Maven
+        run: mvn spotless:check
           | mvn -B package --file pom.xml
