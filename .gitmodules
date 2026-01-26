@@ -1,0 +1,3 @@
+[submodule "submodules/fix-parser"]
+	path = submodules/fix-parser
+	url = https://github.com/xinchentechnote/fix-parser.git
