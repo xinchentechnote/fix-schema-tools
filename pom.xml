@@ -18,9 +18,9 @@
 
   <dependencies>
       <dependency>
-          <groupId>com.xinchentechnote.fix</groupId>
+          <groupId>io.github.xinchentechnote</groupId>
           <artifactId>fix-parser</artifactId>
-          <version>1.0-SNAPSHOT</version>
+          <version>0.1.0</version>
       </dependency>
     <dependency>
       <groupId>info.picocli</groupId>
